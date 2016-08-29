@@ -31,7 +31,7 @@ public class Main extends Application {
 			scene.getStylesheets().add(getClass().getResource("/application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image("icon.png"));
-			primaryStage.setTitle("ChartCeption Live Data Flow On Line Chart(Pribas GmbH)");
+			primaryStage.setTitle("ChartCeption Live Data Flow On Line Chart");
 			primaryStage.show();
 
 		} catch (Exception e) {
