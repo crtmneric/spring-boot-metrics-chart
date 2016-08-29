@@ -14,8 +14,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class jsonProccess {
 
-	public Map<String, String> getJsonFromURL(String jsonURL) throws IOException {
-		String auth = "Admin:ac7Admin";
+	public Map<String, String> getJsonFromURL(String jsonURL, String auth) throws IOException {
 		byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
 		String authStringEnc = new String(authEncBytes);
 		URL url = new URL(jsonURL);

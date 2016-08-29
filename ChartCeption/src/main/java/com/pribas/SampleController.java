@@ -30,6 +30,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
@@ -46,6 +47,10 @@ public class SampleController {
 	@FXML
 	private TextField txtInterval;
 	@FXML
+	private TextField txtUser;
+	@FXML
+	private PasswordField txtPass;
+	@FXML
 	private ListView<String> lstView;
 	@FXML
 	private ListView<String> lstKeys;
@@ -53,6 +58,8 @@ public class SampleController {
 	private LineChart<String, Number> lineChart;
 	@FXML
 	private CheckBox chckAnimation;
+	@FXML
+	private CheckBox chckSave;
 
 	@FXML
 	private Label lblInt;
@@ -71,10 +78,13 @@ public class SampleController {
 	private ImageView imgSuc1;
 	@FXML
 	private TabPane paneTab;
-	private int keyCounter = 0;
-	private int urlCounter = 0;
+
 	private Timeline timeline;
 	private Timeline timelineRef;
+	private List<String> urls;
+	private List<String> keys;
+	private int urlCounter = 0;
+	private int keyCounter = 0;
 	private Map<String, List<Line>> hosts = new HashMap<String, List<Line>>();
 	private int counter = 0;
 
@@ -120,18 +130,34 @@ public class SampleController {
 		}
 		while (it.hasNext()) {
 			String line = it.nextLine();
-			if (line.substring(0, 4).equals("url:") && !line.startsWith("#")) {
-				String urlNew = line.substring(4, line.length());
-				if (!URLsAdded.contains(urlNew)) {
-					URLsAdded.add(urlNew);
+			if (!line.isEmpty()) {
+				if (line.substring(0, 4).equals("url:") && !line.startsWith("#")) {
+					String urlNew = line.substring(4, line.length());
+					if (!URLsAdded.contains(urlNew)) {
+						URLsAdded.add(urlNew);
+					}
 				}
-			}
-			if (line.substring(0, 4).equals("key:") && !line.startsWith("#")) {
-				String keyNew = line.substring(4, line.length());
-				if (!KEYsAdded.contains(keyNew)) {
-					KEYsAdded.add(keyNew);
-				}
+				if (line.substring(0, 4).equals("key:") && !line.startsWith("#")) {
+					String keyNew = line.substring(4, line.length());
+					if (!KEYsAdded.contains(keyNew)) {
+						KEYsAdded.add(keyNew);
+					}
 
+				}
+				if (line.substring(0, 4).equals("usr:") && !line.startsWith("#")) {
+					String keyNew = line.substring(4, line.length());
+					if (txtUser.getText().isEmpty()) {
+						txtUser.setText(keyNew);
+					}
+
+				}
+				if (line.substring(0, 5).equals("pass:") && !line.startsWith("#")) {
+					String keyNew = line.substring(5, line.length());
+					if (txtPass.getText().isEmpty()) {
+						txtPass.setText(keyNew);
+					}
+
+				}
 			}
 
 		}
@@ -165,27 +191,32 @@ public class SampleController {
 
 	private void sendDataToChart() {
 		try {
-			hosts.clear();
-			List<String> urls = lstView.getSelectionModel().getSelectedItems();
-			List<String> keys = lstKeys.getSelectionModel().getSelectedItems();
-			if (!urls.isEmpty() && !keys.isEmpty()) {
-				for (String url : urls) {
-					if (!url.contains("URL")) {
-						String serviceName = url.substring(27, url.length() - 8);
-						List<Line> lines = new ArrayList<Line>();
-						for (String key : keys) {
-							if (!key.contains("KEY")) {
-								Line tempLine = new Line();
-								tempLine.setName(serviceName + "-" + key);
-								tempLine.setKey(key);
-								lines.add(tempLine);
-							}
-						}
-						hosts.put(url, lines);
-					}
-
+			urls = lstView.getSelectionModel().getSelectedItems();
+			keys = lstKeys.getSelectionModel().getSelectedItems();
+			if (urls.size() >= 1 && keys.size() >= 1) {
+				if (counter >= 1) {
+					timeline.stop();
 				}
-				startClicked(Integer.valueOf(txtInterval.getText()) * 1000);
+				hosts.clear();
+				if (!urls.isEmpty() && !keys.isEmpty()) {
+					for (String url : urls) {
+						if (url != null && !url.contains("URL")) {
+							String serviceName = url.substring(27, url.length() - 8);
+							List<Line> lines = new ArrayList<Line>();
+							for (String key : keys) {
+								if (key != null && !key.contains("KEY")) {
+									Line tempLine = new Line();
+									tempLine.setName(serviceName + "-" + key);
+									tempLine.setKey(key);
+									lines.add(tempLine);
+								}
+							}
+							hosts.put(url, lines);
+						}
+
+					}
+					getSeries(Integer.valueOf(txtInterval.getText()) * 1000);
+				}
 			}
 
 		} catch (
@@ -202,16 +233,16 @@ public class SampleController {
 		keyCounter++;
 		lblKey.setVisible(true);
 		imgSuc.setVisible(true);
-		lblKey.setText(keyCounter + " KEY VALUE SELECTED!");
+		lblKey.setText(keys.size() + " KEY VALUE SELECTED!");
 	}
 
 	@FXML
 	private void itemSelected(javafx.scene.input.MouseEvent mouseEvent) {
-		urlCounter++;
 		sendDataToChart();
+		urlCounter++;
 		lblURL.setVisible(true);
 		imgSuc1.setVisible(true);
-		lblURL.setText(urlCounter + " URL VALUE SELECTED!");
+		lblURL.setText(urls.size() + " URL VALUE SELECTED!");
 	}
 
 	@FXML
@@ -222,6 +253,53 @@ public class SampleController {
 		} else {
 			lineChart.setAnimated(false);
 		}
+	}
+
+	@FXML
+	private void saveChecked(ActionEvent tEvent) throws IOException {
+		boolean state = chckSave.isSelected();
+		if (state) {
+			if (txtPass.getText().isEmpty() || txtUser.getText().isEmpty()) {
+				showSomeCoolAlertMessage(AlertType.ERROR, "Empty Value", "Check Username or Password",
+						"Empty value dedected Check username or password");
+			} else {
+				String confFile = "Configures.txt";
+				File filetoRead = new File(confFile);
+				try {
+					filetoRead.createNewFile();
+				} catch (IOException e1) {
+					showSomeCoolAlertMessage(AlertType.INFORMATION, "No file", "No file found", "No file to read..");
+				}
+				LineIterator it = null;
+				try {
+					it = FileUtils.lineIterator(filetoRead, "UTF-8");
+				} catch (IOException e) {
+
+					showSomeCoolAlertMessage(AlertType.INFORMATION, "No line", "Line not found!", "No line to read..");
+				}
+				boolean notFound = true;
+				while (it.hasNext()) {
+					String line = it.nextLine();
+					if (!line.isEmpty()) {
+						if ((line.substring(0, 4).equals("usr:") && !line.startsWith("#"))
+								|| (line.substring(0, 5).equals("pass:") && !line.startsWith("#"))) {
+							notFound = false;
+						}
+					}
+				}
+				if (notFound) {
+					FileUtils.writeStringToFile(filetoRead, "\nusr:" + txtUser.getText() + "\n", true);
+					FileUtils.writeStringToFile(filetoRead, "pass:" + txtPass.getText() + "\n", true);
+					showSomeCoolAlertMessage(AlertType.INFORMATION, "Succeed", "Added",
+							"Succeessfully added to configure file!");
+				} else {
+					showSomeCoolAlertMessage(AlertType.INFORMATION, "Already written!", "Already written in file.",
+							"These credantials are already written in configure file!");
+				}
+
+			}
+		}
+
 	}
 
 	@FXML
@@ -250,7 +328,7 @@ public class SampleController {
 
 	}
 
-	private void startClicked(int interval) {
+	private void getSeries(int interval) {
 		try {
 			counter++;
 			lineChart.getData().clear();
@@ -266,6 +344,7 @@ public class SampleController {
 				timeline.stop();
 			}
 			timeline = new Timeline(new KeyFrame(Duration.millis(interval), ae -> {
+
 				for (Map.Entry<String, List<Line>> m : hosts.entrySet()) {
 					putLineToChart(m, jp);
 				}
@@ -283,8 +362,8 @@ public class SampleController {
 			timeline.setCycleCount(Animation.INDEFINITE);
 			timeline.play();
 		} catch (Exception e) {
-			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key Value!",
-					"The Key value which u writed on textfield is wrong!");
+			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key or URL Value!",
+					"The Key or URL value which u writed on textfield is wrong!");
 			e.printStackTrace();
 		}
 	}
@@ -312,12 +391,13 @@ public class SampleController {
 		String url = m.getKey();
 
 		try {
-			Map<String, String> jsonFromURL = jp.getJsonFromURL(url);
+			String auth = txtUser.getText() + ":" + txtPass.getText();
+			Map<String, String> jsonFromURL = jp.getJsonFromURL(url, auth);
 			if (jsonFromURL == null) {
 				lineChart.getData().clear();
 				timeline.stop();
-				showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key Value!",
-						"The Key value which u writed on textfield is wrong!");
+				showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key or URL Value!",
+						"The Key or URL value which u writed on textfield is wrong!");
 			} else {
 				for (Line line : m.getValue()) {
 					line.getSeries().setName(line.getName());
@@ -336,8 +416,8 @@ public class SampleController {
 
 		} catch (IOException e) {
 			timeline.stop();
-			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key Value!",
-					"The Key value which u writed on textfield is wrong!");
+			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key, URL or Username/Password Value!",
+					"The Key or URL value which u writed on textfield is wrong!");
 		}
 	}
 

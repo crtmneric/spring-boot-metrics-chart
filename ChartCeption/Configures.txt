@@ -1,8 +1,9 @@
 url:http://46.101.161.218:8088/internalobjects/metrics
 url:http://130.211.73.204:8089/gocartbroker2/metrics
-url:http://130.211.73.204:8089/gocartbroker23/metrics
 #url:http://130.211.73.204:8088/internalobjects/metrics
 key:mem
 asdsadsadFSAFKJSKLF
 FASLÞFJQWIOTQ)
 key:mem.free
+usr:Admin
+pass:ac7Admin
