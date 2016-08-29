@@ -364,7 +364,7 @@ public class SampleController {
 		} catch (Exception e) {
 			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Wrong Key or URL Value!",
 					"The Key or URL value which u writed on textfield is wrong!");
-			e.printStackTrace();
+
 		}
 	}
 
