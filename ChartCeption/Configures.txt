@@ -1,5 +1,5 @@
-url:localhost/internalobjects/metrics
-url:localhost/gocartbroker2/metrics
+url:lcl/internalobjects/metrics
+url:locl/gocartbroker2/metrics
 #url:local/internalobjects/metrics
 key:mem
 asdsadsadFSAFKJSKLF
