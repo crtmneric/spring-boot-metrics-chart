@@ -1,5 +1,5 @@
 # ChartCeption
-ChartCeption is an open source Spring Json live data monitoring app.
+ChartCeption is an open source Spring Json live data JavaFX Maven monitoring app.
 
 
 ChartCeption read's URL's and Json KEY's from a configure file which in execute path.
