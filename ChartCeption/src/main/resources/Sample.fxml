@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1231.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pribas.SampleController">
+   <center>
+      <TabPane fx:id="paneTab" prefHeight="817.0" prefWidth="1293.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="chartTab" onSelectionChanged="#chartSelected" text="Chart">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="vBoks" layoutX="14.0" layoutY="14.0" prefHeight="732.0" prefWidth="1209.0">
+                           <children>
+                        		<LineChart fx:id="lineChart" prefHeight="879.0" prefWidth="1595.0" style="-fx-border-color: black;">
+                        			<xAxis>
+                        				<CategoryAxis side="BOTTOM" />
+                        			</xAxis>
+                        			<yAxis>
+                        				<NumberAxis side="LEFT" />
+                        			</yAxis>
+                        		</LineChart>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="settings" onSelectionChanged="#tabChange" text="Settings">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                  		<VBox fx:id="vPane" prefHeight="739.0" prefWidth="1231.0" style="-fx-border-color: black;">
+                  			<children>
+                  				<HBox prefHeight="41.0" prefWidth="905.0">
+                  					<children>
+                                    <Label fx:id="lblInt" prefHeight="36.0" prefWidth="192.0" text="Chart Data İnterval:">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                  						<TextField fx:id="txtInterval" onKeyPressed="#textChanged" prefHeight="39.0" prefWidth="82.0" promptText="Second" text="5">
+                  							<font>
+                  								<Font size="18.0" />
+                  							</font>
+                  						</TextField>
+                  						<CheckBox fx:id="chckAnimation" mnemonicParsing="false" onAction="#checkStateChanged" prefHeight="39.0" prefWidth="224.0" selected="true" text="Graph Animation" textFill="#030303">
+                  							<font>
+                  								<Font size="18.0" />
+                  							</font>
+                  						</CheckBox>
+                                    <Button fx:id="btnStop" mnemonicParsing="false" onAction="#stopClicked" prefHeight="41.0" prefWidth="729.0" text="STOP" textFill="#323232">
+                                       <font>
+                                          <Font name="Arial" size="19.0" />
+                                       </font>
+                                    </Button>
+                  					</children>
+                  				</HBox>
+                  				<ListView fx:id="lstKeys" onMouseClicked="#keyClicked" prefHeight="317.0" prefWidth="1229.0" />
+                  				<ListView fx:id="lstView" onMouseClicked="#itemSelected" prefHeight="287.0" prefWidth="1229.0" />
+                              <HBox prefHeight="30.0" prefWidth="1229.0">
+                                 <children>
+                                    <Label fx:id="lblKey">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="imgSuc" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@/suc.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="1229.0">
+                                 <children>
+                                    <Label fx:id="lblURL">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="imgSuc1" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@/suc.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                  			</children>
+                  		</VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+</BorderPane>
