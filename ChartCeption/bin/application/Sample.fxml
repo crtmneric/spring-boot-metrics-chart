@@ -1,31 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.image.*?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="609.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
-   <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <TextField fx:id="txtURL" prefHeight="39.0" prefWidth="689.0" promptText="Enter URL Here!">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </TextField>
-                  <Button fx:id="btnURL" mnemonicParsing="false" prefHeight="31.0" prefWidth="252.0" text="Enter">
-                     <font>
-                        <Font name="Arial" size="21.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </top>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1231.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pribas.SampleController">
+   <center>
+      <TabPane fx:id="paneTab" prefHeight="817.0" prefWidth="1293.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab fx:id="chartTab" onSelectionChanged="#chartSelected" text="Chart">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox fx:id="vBoks" layoutX="14.0" layoutY="14.0" prefHeight="732.0" prefWidth="1209.0">
+                           <children>
+                        		<LineChart fx:id="lineChart" prefHeight="879.0" prefWidth="1595.0" style="-fx-border-color: black;">
+                        			<xAxis>
+                        				<CategoryAxis side="BOTTOM" />
+                        			</xAxis>
+                        			<yAxis>
+                        				<NumberAxis side="LEFT" />
+                        			</yAxis>
+                        		</LineChart>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+          <Tab fx:id="settings" onSelectionChanged="#tabChange" text="Settings">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                  		<VBox fx:id="vPane" prefHeight="739.0" prefWidth="1231.0" style="-fx-border-color: black;">
+                  			<children>
+                  				<HBox prefHeight="41.0" prefWidth="905.0">
+                  					<children>
+                                    <Label prefHeight="41.0" prefWidth="114.0" text="Credantials:">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="txtUser" prefHeight="42.0" prefWidth="187.0" promptText="Username">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </TextField>
+                                    <PasswordField fx:id="txtPass" prefHeight="42.0" prefWidth="187.0" promptText="Password">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </PasswordField>
+                                    <CheckBox fx:id="chckSave" mnemonicParsing="false" onAction="#saveChecked" prefHeight="42.0" prefWidth="168.0" text="Save Credantials">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </CheckBox>
+                  						<CheckBox fx:id="chckAnimation" mnemonicParsing="false" onAction="#checkStateChanged" prefHeight="42.0" prefWidth="183.0" selected="true" text="Graph Animation" textFill="#030303">
+                  							<font>
+                  								<Font size="17.0" />
+                  							</font>
+                  						</CheckBox>
+                                    <Label fx:id="lblInt" prefHeight="42.0" prefWidth="157.0" text="Chart Data İnterval:">
+                                       <font>
+                                          <Font size="17.0" />
+                                       </font>
+                                    </Label>
+                  						<TextField fx:id="txtInterval" onKeyPressed="#textChanged" prefHeight="44.0" prefWidth="82.0" promptText="Second" text="5">
+                  							<font>
+                  								<Font size="18.0" />
+                  							</font>
+                  						</TextField>
+                                    <Button fx:id="btnStop" mnemonicParsing="false" onAction="#stopClicked" prefHeight="41.0" prefWidth="184.0" text="STOP" textFill="#323232">
+                                       <font>
+                                          <Font name="Arial" size="19.0" />
+                                       </font>
+                                    </Button>
+                  					</children>
+                  				</HBox>
+                  				<ListView fx:id="lstKeys" onMouseClicked="#keyClicked" prefHeight="317.0" prefWidth="1229.0" />
+                  				<ListView fx:id="lstView" onMouseClicked="#itemSelected" prefHeight="287.0" prefWidth="1229.0" />
+                              <HBox prefHeight="30.0" prefWidth="1229.0">
+                                 <children>
+                                    <Label fx:id="lblKey">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="imgSuc" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@/suc.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="30.0" prefWidth="1229.0">
+                                 <children>
+                                    <Label fx:id="lblURL">
+                                       <font>
+                                          <Font size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <ImageView fx:id="imgSuc1" fitHeight="31.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                                       <image>
+                                          <Image url="@/suc.gif" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </HBox>
+                  			</children>
+                  		</VBox>
+                     </children>
+                  </AnchorPane>
+            </content>
+          </Tab>
+        </tabs>
+      </TabPane>
+   </center>
 </BorderPane>
