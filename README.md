@@ -20,6 +20,10 @@ pass:admin
 
 Contact: serkanozdemir3207@gmail.com
 
-http://i.hizliresim.com/E35RVv.jpg
+   Data Monitoring     | Settings
+-------------------------|-------------------------
+<img src="http://i.hizliresim.com/E35RVv.jpg" width="400">  | <img src="http://i.hizliresim.com/jBVW49.jpg" width="400">
 
-http://i.hizliresim.com/jBVW49.jpg
+
+
+
