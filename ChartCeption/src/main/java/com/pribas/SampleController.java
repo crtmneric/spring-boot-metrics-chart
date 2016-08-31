@@ -305,7 +305,7 @@ public class SampleController {
 	@FXML
 	private void tabChange(javafx.event.Event event) {
 		refreshList();
-		vBoks.setPrefHeight(paneTab.getHeight());
+		vBoks.setPrefHeight(paneTab.getHeight() - 100);
 		vBoks.setPrefWidth(paneTab.getWidth() - 100);
 		vPane.setPrefHeight(paneTab.getHeight());
 		vPane.setPrefWidth(paneTab.getWidth());
@@ -332,7 +332,7 @@ public class SampleController {
 		try {
 			counter++;
 			lineChart.getData().clear();
-			jsonProccess jp = new jsonProccess();
+			JsonProccess jp = new JsonProccess();
 			for (Map.Entry<String, List<Line>> m : hosts.entrySet()) {
 				for (Line line : m.getValue()) {
 					lineChart.getData().add(line.getSeries());
@@ -387,7 +387,7 @@ public class SampleController {
 		}
 	}
 
-	private void putLineToChart(Map.Entry<String, List<Line>> m, jsonProccess jp) {
+	private void putLineToChart(Map.Entry<String, List<Line>> m, JsonProccess jp) {
 		String url = m.getKey();
 
 		try {

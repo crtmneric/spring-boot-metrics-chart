@@ -12,7 +12,7 @@ import org.apache.commons.codec.binary.Base64;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-public class jsonProccess {
+public class JsonProccess {
 
 	public Map<String, String> getJsonFromURL(String jsonURL, String auth) throws IOException {
 		byte[] authEncBytes = Base64.encodeBase64(auth.getBytes());
