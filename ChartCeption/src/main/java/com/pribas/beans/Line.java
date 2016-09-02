@@ -1,4 +1,4 @@
-package com.pribas;
+package com.pribas.beans;
 
 import java.util.ArrayList;
 import java.util.List;

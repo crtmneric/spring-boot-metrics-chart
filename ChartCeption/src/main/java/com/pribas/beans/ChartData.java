@@ -1,4 +1,4 @@
-package com.pribas;
+package com.pribas.beans;
 
 public class ChartData {
 

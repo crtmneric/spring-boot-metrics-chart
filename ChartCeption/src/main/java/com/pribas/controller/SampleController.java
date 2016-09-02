@@ -1,4 +1,4 @@
-package com.pribas;
+package com.pribas.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,9 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
+
+import com.pribas.beans.ChartData;
+import com.pribas.beans.Line;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -116,18 +119,27 @@ public class SampleController {
 		}
 		String confFile = "Configures.txt";
 		File filetoRead = new File(confFile);
-		try {
-			filetoRead.createNewFile();
-		} catch (IOException e1) {
-			showSomeCoolAlertMessage(AlertType.INFORMATION, "No file", "No file found", "No file to read..");
-		}
 		LineIterator it = null;
 		try {
+			filetoRead.createNewFile();
 			it = FileUtils.lineIterator(filetoRead, "UTF-8");
 		} catch (IOException e) {
 
 			showSomeCoolAlertMessage(AlertType.INFORMATION, "No line", "Line not found!", "No line to read..");
 		}
+		checkConfigure(URLsAdded, KEYsAdded, it);
+
+		if (URLsAdded.isEmpty()) {
+			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Configures.txt File is Empty!",
+					"The Configure file in ur execute path is an empty textfile!");
+		}
+		ObservableList<String> obList = FXCollections.observableList(URLsAdded);
+		ObservableList<String> keyList = FXCollections.observableList(KEYsAdded);
+		lstView.setItems(obList);
+		lstKeys.setItems(keyList);
+	}
+
+	private void checkConfigure(List<String> URLsAdded, List<String> KEYsAdded, LineIterator it) {
 		while (it.hasNext()) {
 			String line = it.nextLine();
 			if (!line.isEmpty()) {
@@ -161,15 +173,6 @@ public class SampleController {
 			}
 
 		}
-
-		if (URLsAdded.isEmpty()) {
-			showSomeCoolAlertMessage(AlertType.ERROR, "ERROR", "Configures.txt File is Empty!",
-					"The Configure file in ur execute path is an empty textfile!");
-		}
-		ObservableList<String> obList = FXCollections.observableList(URLsAdded);
-		ObservableList<String> keyList = FXCollections.observableList(KEYsAdded);
-		lstView.setItems(obList);
-		lstKeys.setItems(keyList);
 	}
 
 	public void autoRefreshList() {
@@ -222,7 +225,8 @@ public class SampleController {
 		} catch (
 
 		Exception ex) {
-			showSomeCoolAlertMessage(AlertType.INFORMATION, "Information", "Empty List!", "Empty List Bro!");
+			showSomeCoolAlertMessage(AlertType.INFORMATION, "Information", "Empty or Wrong Credantials",
+					"Empty or Wrong Credantials");
 			ex.printStackTrace();
 		}
 	}
@@ -265,26 +269,19 @@ public class SampleController {
 			} else {
 				String confFile = "Configures.txt";
 				File filetoRead = new File(confFile);
-				try {
-					filetoRead.createNewFile();
-				} catch (IOException e1) {
-					showSomeCoolAlertMessage(AlertType.INFORMATION, "No file", "No file found", "No file to read..");
-				}
 				LineIterator it = null;
 				try {
+					filetoRead.createNewFile();
 					it = FileUtils.lineIterator(filetoRead, "UTF-8");
 				} catch (IOException e) {
-
 					showSomeCoolAlertMessage(AlertType.INFORMATION, "No line", "Line not found!", "No line to read..");
 				}
 				boolean notFound = true;
 				while (it.hasNext()) {
 					String line = it.nextLine();
-					if (!line.isEmpty()) {
-						if ((line.substring(0, 4).equals("usr:") && !line.startsWith("#"))
-								|| (line.substring(0, 5).equals("pass:") && !line.startsWith("#"))) {
-							notFound = false;
-						}
+					if (!line.isEmpty()
+							&& (line.substring(0, 4).equals("usr:") || line.substring(0, 5).equals("pass:"))) {
+						notFound = false;
 					}
 				}
 				if (notFound) {
@@ -294,7 +291,7 @@ public class SampleController {
 							"Succeessfully added to configure file!");
 				} else {
 					showSomeCoolAlertMessage(AlertType.INFORMATION, "Already written!", "Already written in file.",
-							"These credantials are already written in configure file!");
+							"These credantials are already written or u have already 1 username and 1 password in configure file!");
 				}
 
 			}
