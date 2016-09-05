@@ -19,8 +19,8 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>8.5.0</version>
 				<configuration>
-					<vendor>Pribas</vendor>
-					<mainClass>com.pribas.Main</mainClass>
+					<vendor>SSO</vendor>
+					<mainClass>com.sso</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>
