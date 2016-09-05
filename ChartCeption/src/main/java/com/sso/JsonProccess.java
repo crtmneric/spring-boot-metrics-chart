@@ -1,4 +1,4 @@
-package com.pribas.controller;
+package com.sso;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.pribas.beans;
+package com.sso.beans;
 
 import java.util.ArrayList;
 import java.util.List;

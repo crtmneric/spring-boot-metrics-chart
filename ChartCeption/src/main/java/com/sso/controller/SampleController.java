@@ -1,4 +1,4 @@
-package com.pribas.controller;
+package com.sso.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,8 +14,9 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
-import com.pribas.beans.ChartData;
-import com.pribas.beans.Line;
+import com.sso.JsonProccess;
+import com.sso.beans.ChartData;
+import com.sso.beans.Line;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -266,6 +267,7 @@ public class SampleController {
 			if (txtPass.getText().isEmpty() || txtUser.getText().isEmpty()) {
 				showSomeCoolAlertMessage(AlertType.ERROR, "Empty Value", "Check Username or Password",
 						"Empty value dedected Check username or password");
+				chckSave.setSelected(false);
 			} else {
 				String confFile = "Configures.txt";
 				File filetoRead = new File(confFile);
@@ -292,6 +294,7 @@ public class SampleController {
 				} else {
 					showSomeCoolAlertMessage(AlertType.INFORMATION, "Already written!", "Already written in file.",
 							"These credantials are already written or u have already 1 username and 1 password in configure file!");
+					chckSave.setSelected(false);
 				}
 
 			}

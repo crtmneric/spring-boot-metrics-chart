@@ -1,4 +1,4 @@
-package com.pribas.controller;
+package com.sso;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
