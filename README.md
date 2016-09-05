@@ -24,7 +24,7 @@ Contact: serkanozdemir3207@gmail.com
 -------------------------|-------------------------
 <img src="http://i.hizliresim.com/E35RVv.jpg" width="400">  | <img src="http://i.hizliresim.com/jBVW49.jpg" width="400">
 
-## JavaFX Maven plugin 
+## ChartCeption is a Maven Project so..
 Quickstart for JavaFX JAR
 =========================
 To create your executable file with JavaFX-magic, call `mvn jfx:jar`. The jar-file will be placed at `target/jfx/app`.
