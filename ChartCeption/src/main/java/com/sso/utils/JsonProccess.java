@@ -1,4 +1,4 @@
-package com.sso;
+package com.sso.utils;
 
 import java.io.IOException;
 import java.io.InputStream;

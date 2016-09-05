@@ -14,9 +14,9 @@ import java.util.Map;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.LineIterator;
 
-import com.sso.JsonProccess;
 import com.sso.beans.ChartData;
 import com.sso.beans.Line;
+import com.sso.utils.JsonProccess;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
