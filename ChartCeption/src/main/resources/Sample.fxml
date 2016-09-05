@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.chart.*?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.image.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1231.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.pribas.controller.SampleController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1231.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sso.controller.SampleController">
    <center>
       <TabPane fx:id="paneTab" prefHeight="817.0" prefWidth="1293.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -27,6 +28,9 @@
                         			<yAxis>
                         				<NumberAxis side="LEFT" />
                         			</yAxis>
+                                 <cursor>
+                                    <Cursor fx:constant="CROSSHAIR" />
+                                 </cursor>
                         		</LineChart>
                            </children>
                         </VBox>
